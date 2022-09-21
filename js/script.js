@@ -1,5 +1,6 @@
 var startEle = document.getElementById('start');
-var problemsEle = document.getElementsByName('problems')[0];
+var problemsEle = document.getElementsByClassName('problems')[0];
+var calculateEle = document.getElementById('calculate');
 
 function generateRandomNumber(max) {
     return parseInt(Math.random() * max)
@@ -9,17 +10,21 @@ function textToSymbol(text) {
     switch (text) {
         case 'add':
             return '+'
-            break;
         case 'sub':
             return '-'
-            break;
         case 'multiply':
             return '*'
-            break;
         default:
             return '/'
-            break;
     }
+}
+
+function resetProblems(){
+    problemsEle.innerHTML="";
+}
+
+function enableCalculate(){
+    calculateEle.removeAttribute('disabled');
 }
 
 function updateProblem(number1, number2, operation) {
@@ -41,13 +46,19 @@ function updateProblem(number1, number2, operation) {
     // create hr
 
     // create input
-    let inputEle =document.createElement('input');
+    let inputEle = document.createElement('input');
     // update input class name
     inputEle.setAttribute('class', 'answer');
     // create input type text
-    inputEleset.setAttribute('type', 'text');
+    inputEle.setAttribute('type', 'text');
     // append h3s, hr, input inside problem
-    // append inside problems
+    problemEle.append(number1)
+    problemEle.append(operationEle)
+    problemEle.append(number2Ele)
+    problemEle.append(inputEle)
+
+    // append problem inside problems
+    problemsEle.append(problemEle);
 }
 
 var stage1Operation = function () {
@@ -65,8 +76,9 @@ var stage1Operation = function () {
             randomNumber1 = generateRandomNumber(range);
             // Random no 2
             randomNumber2 = generateRandomNumber(range);
-            console.log(randomNumber1, randomNumber2, operation)
+            updateProblem(randomNumber1, randomNumber2, operation);
         }
+        enableCalculate();
     }
 }
 
